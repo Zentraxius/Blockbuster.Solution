@@ -1,3 +1,25 @@
 @{
   Layout = "_Layout";
 }
+
+@model Blockbuster.Models.Video;
+
+<h4>Add a new video</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Title)
+    @Html.TextBoxFor(model => model.Title)
+
+    @Html.LabelFor(model => model.Rating)
+    @Html.TextBoxFor(model => model.Rating)
+
+    @Html.LabelFor(model => model.Stock)
+    @Html.TextBoxFor(model => model.Stock)
+
+    <input type="submit" value="Add new video" class="btn btn-default" />
+}
+<p>@Html.ActionLink("Show all videos", "Index")</p>
+
+   
+   

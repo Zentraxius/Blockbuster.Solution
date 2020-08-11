@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Blockbuster.Models.Video;
+
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+<hr />
+<h4>Movie Details:</h4>
+<hr />
+<p>Rating: @Html.DisplayFor(model => model.Rating)</p>
+<br>
+<p>Copies in stock: 
+@if (@Model.CurrentStock() == 0)
+{
+  <p>Sorry, all copies of this video are currently checked out! Please select another video.</p>
+}
+else
+{
+  <p>There are: @Html.DisplayFor(model => model.CurrentStock()) copies of @Html.DisplayFor(model => model.Title) currently available for rental.</p>
+}
+</p>
+
+<p>@Html.ActionLink("Back to Videos List", "Index")</p>
+<p>@Html.ActionLink("Return Home", "Index", "Home")</p>
