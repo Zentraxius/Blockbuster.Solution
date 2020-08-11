@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Blockbuster.Models;
+@model List<Blockbuster.Models.Video>;
+
+<h1>Videos:</h1>
+
+<ul>
+  @foreach(Video video in Model)
+  {
+    <li>@Html.ActionLink($"{video.Title")
+  }
+</ul>

@@ -15,5 +15,15 @@ namespace Blockbuster.Controllers
   {
     private readonly BlockbusterContext _db;
     
+    public VideosController(BlockbusterContext db)
+    {
+      _db = db;
+    }
+
+    public ActionResult Index()
+    {
+      List<Videos> model = _db.Videos.ToList();
+      return View(model);
+    }
   }
 }
