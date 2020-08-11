@@ -10,6 +10,8 @@
 <ul>
   @foreach(Video video in Model)
   {
-    <li>@Html.ActionLink($"{video.Title")
+    <li>@Html.ActionLink($"{video.Title}", "Details", new { id = video.VideoId })</li>
   }
 </ul>
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

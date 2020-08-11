@@ -1,6 +1,6 @@
-using microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
-namespace Blockbuster.models
+namespace Blockbuster.Models
 {
   public class ApplicationUser : IdentityUser
   {

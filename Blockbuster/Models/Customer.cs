@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Blockbuster.models
+namespace Blockbuster.Models
 {
   public class Customer
   {

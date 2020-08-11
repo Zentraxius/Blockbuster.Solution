@@ -4,11 +4,12 @@ using Blockbuster.Models;
 
 namespace Blockbuster.Models
 {
-  public class RecipeBoxContext : IdentityDbContext<ApplicationUser>
+  public class BlockbusterContext : IdentityDbContext<ApplicationUser>
   {
     // public virtural DbSet<Tag> Tags { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Video> Videos { get; set; }
+    public DbSet<CustomerVideo> CustomerVideo { get; set; }
     public BlockbusterContext(DbContextOptions options) : base(options) { }
   }
 }

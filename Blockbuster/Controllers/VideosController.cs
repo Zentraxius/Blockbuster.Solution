@@ -22,8 +22,13 @@ namespace Blockbuster.Controllers
 
     public ActionResult Index()
     {
-      List<Videos> model = _db.Videos.ToList();
+      List<Video> model = _db.Videos.ToList();
       return View(model);
+    }
+    public ActionResult Details(int id)
+    {
+      var thisVideo = _db.Videos
+        
     }
   }
 }

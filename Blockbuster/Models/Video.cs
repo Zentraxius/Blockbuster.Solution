@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace Blockbuster.models
+namespace Blockbuster.Models
 {
   public class Video
   {
     public Video()
     {
-      this.Customers = new Hashset<CustomerVideo>();
+      this.Customers = new HashSet<CustomerVideo>();
       // this.Actors = new Hashset<VideoActors>();
       // this.Genres = new Hashset<VideoGenres>();
     }
