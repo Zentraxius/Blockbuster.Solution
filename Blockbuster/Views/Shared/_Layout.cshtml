@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blockbuster</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="~/css/styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <form action="/" method="post">
+        <select name="searchOption" id="searchOption">
+          <option value="machines">Search Customers</option>
+          <option value="engineers">Search Videos</option>
+        </select>
+        <input name="searchString" id="searchString" type="search" placeholder="Search">
+        <button type="submit">Search</button>
+      </form>
+      @RenderBody()
+    </div>
+  </body>
+</html>

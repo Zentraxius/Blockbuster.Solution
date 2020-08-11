@@ -5,6 +5,10 @@ using BlockBuster.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Blockbuster.Controllers
 {
@@ -13,16 +17,18 @@ namespace Blockbuster.Controllers
     private readonly BlockbusterContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public ItemsController(UserManager<ApplicationUser> userManager, ToDoListContext db)
+    public CustomersController(UserManager<ApplicationUser> userManager, BlockbusterContext db)
     {
       _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public Task<ActionResult> Index()
     {
-      List<Customer> model = _db.Customers.ToList();
-      return View(model);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userCustomers = _db.Customers.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(_db.Customers.ToList());
     }
   }
 }
