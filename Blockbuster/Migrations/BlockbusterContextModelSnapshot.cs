@@ -78,15 +78,13 @@ namespace Blockbuster.Migrations
                     b.Property<int>("CustomerVideoId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CustomerId");
-
-                    b.Property<string>("CustomerId1");
+                    b.Property<string>("CustomerId");
 
                     b.Property<int>("VideoId");
 
                     b.HasKey("CustomerVideoId");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("VideoId");
 
@@ -220,7 +218,7 @@ namespace Blockbuster.Migrations
                 {
                     b.HasOne("Blockbuster.Models.Customer", "Customer")
                         .WithMany("Videos")
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Blockbuster.Models.Video", "Video")
                         .WithMany("Customers")

@@ -53,16 +53,17 @@ namespace Blockbuster.Controllers
       .Include(video => video.Customers)
       .ThenInclude(join => join.Customer)
       .FirstOrDefault(videos => videos.VideoId == id);
-      ViewBag.CustomerId = new SelectList(_db.Customers, "CustomerId", "Name");
+      // ViewBag.CustomerId = new SelectList(_db.Customers, "CustomerId", "Name");
       return View(thisVideo);
     }
 
     [HttpPost]
-    public ActionResult AddCustomer(Video video, int CustomerId)
+    public ActionResult AddCustomer(Video video)
     {
-      if (CustomerId != 0)
+      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (userId != null)
       {
-        _db.CustomerVideo.Add(new CustomerVideo() { CustomerId = CustomerId, VideoId = video.VideoId });
+        _db.CustomerVideo.Add(new CustomerVideo() { CustomerId = userId, VideoId = video.VideoId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");

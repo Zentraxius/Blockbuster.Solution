@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blockbuster.Migrations
 {
-    public partial class FourthInitial : Migration
+    public partial class FifthInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -177,16 +177,15 @@ namespace Blockbuster.Migrations
                 {
                     CustomerVideoId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(nullable: false),
-                    VideoId = table.Column<int>(nullable: false),
-                    CustomerId1 = table.Column<string>(nullable: true)
+                    CustomerId = table.Column<string>(nullable: true),
+                    VideoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerVideo", x => x.CustomerVideoId);
                     table.ForeignKey(
-                        name: "FK_CustomerVideo_AspNetUsers_CustomerId1",
-                        column: x => x.CustomerId1,
+                        name: "FK_CustomerVideo_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -236,9 +235,9 @@ namespace Blockbuster.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerVideo_CustomerId1",
+                name: "IX_CustomerVideo_CustomerId",
                 table: "CustomerVideo",
-                column: "CustomerId1");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerVideo_VideoId",
