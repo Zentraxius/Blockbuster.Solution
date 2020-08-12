@@ -5,6 +5,9 @@
 @if (@Model.Videos.Count == 0)
 {
   <p>You do not have any videos rented out</p>
+
+  <p>@Html.ActionLink("Return Home", "Index")</p>
+
 }
 else
 {
@@ -15,11 +18,13 @@ else
     <li>@join.Video.Title</li>
     @using (Html.BeginForm("DeleteCustomer", "Videos"))
     {
-      @Html.Hidden("joinId", @join.CustomerVideoId)
+      @* @Html.Hidden("joinId", @join.CustomerVideoId) *@
       <input type="submit" value="Return this video"/>
     }
   }
   </ul>
+
+  <p>@Html.ActionLink("Return Home", "Index")</p>
 }
 
 @model Blockbuster.Models.Customer
