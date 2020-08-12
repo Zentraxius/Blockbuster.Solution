@@ -14,7 +14,7 @@ namespace Blockbuster.Models
     public int VideoId {get; set; }
     public string CustomerName {get; set;}
     // public virtual ApplicationUser User { get; set; }
-    public ICollection<CustomerVideo> Videos {get; }  
+    public ICollection<CustomerVideo> Videos { get; }  
   }
 }
     

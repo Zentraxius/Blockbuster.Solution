@@ -68,5 +68,15 @@ namespace Blockbuster.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [HttpPost]
+    public ActionResult DeleteCustomer()
+    {
+      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+      var joinEntry = _db.CustomerVideo.FirstOrDefault(entry => entry.CustomerId == userId);
+      _db.CustomerVideo.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

@@ -78,6 +78,15 @@ namespace Blockbuster.Controllers
       return RedirectToAction("Index");
     }
 
+    public ActionResult Details (int id)
+    {
+      var thisCustomer = _db.Customers
+        .Include(customer => customer.Videos)
+        .ThenInclude(join => join.Video)
+        .FirstOrDefault(customer => customer.CustomerId == id);
+      return View(thisCustomer);
+    }
+
     // public CustomersController(UserManager<ApplicationUser> userManager, BlockbusterContext db)
     // {
     //   _userManager = userManager;
