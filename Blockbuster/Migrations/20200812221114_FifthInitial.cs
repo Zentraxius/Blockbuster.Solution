@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Blockbuster.Migrations
 {
-    public partial class initial : Migration
+    public partial class FifthInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,11 +40,29 @@ namespace Blockbuster.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<int>(nullable: false),
+                    VideoId = table.Column<int>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Videos",
+                columns: table => new
+                {
+                    VideoId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Rating = table.Column<string>(nullable: true),
+                    Stock = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Videos", x => x.VideoId);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,65 +172,23 @@ namespace Blockbuster.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    VideoId = table.Column<int>(nullable: false),
-                    CustomerName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                    table.ForeignKey(
-                        name: "FK_Customers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Videos",
-                columns: table => new
-                {
-                    VideoId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: true),
-                    Ratings = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Videos", x => x.VideoId);
-                    table.ForeignKey(
-                        name: "FK_Videos_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CustomerVideo",
                 columns: table => new
                 {
                     CustomerVideoId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<string>(nullable: true),
                     VideoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerVideo", x => x.CustomerVideoId);
                     table.ForeignKey(
-                        name: "FK_CustomerVideo_Customers_CustomerId",
+                        name: "FK_CustomerVideo_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CustomerVideo_Videos_VideoId",
                         column: x => x.VideoId,
@@ -259,11 +235,6 @@ namespace Blockbuster.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_UserId",
-                table: "Customers",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerVideo_CustomerId",
                 table: "CustomerVideo",
                 column: "CustomerId");
@@ -272,11 +243,6 @@ namespace Blockbuster.Migrations
                 name: "IX_CustomerVideo_VideoId",
                 table: "CustomerVideo",
                 column: "VideoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Videos_UserId",
-                table: "Videos",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -303,13 +269,10 @@ namespace Blockbuster.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Videos");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

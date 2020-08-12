@@ -6,7 +6,7 @@
 
 <h2>@Html.DisplayFor(model => model.Title)</h2>
 <hr />
-<h4>Movie Details:</h4>
+<h4>Movie's Available</h4>
 <hr />
 <p>Rating: @Html.DisplayFor(model => model.Rating)</p>
 <br>
@@ -17,9 +17,10 @@
 }
 else
 {
-  <p>There are: @Html.DisplayFor(model => model.CurrentStock()) copies of @Html.DisplayFor(model => model.Title) currently available for rental.</p>
+  <p>There are @Model.CurrentStock() copies of @Html.DisplayFor(model => model.Title) currently available for rental.</p>
 }
 </p>
 
+<p>@Html.ActionLink("Rent a copy of this video", "AddCustomer", new { id = Model.VideoId })</p>
 <p>@Html.ActionLink("Back to Videos List", "Index")</p>
-<p>@Html.ActionLink("Return Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Return Home", "Index", "Customers")</p>

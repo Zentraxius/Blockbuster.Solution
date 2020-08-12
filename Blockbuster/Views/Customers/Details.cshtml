@@ -2,4 +2,30 @@
   Layout = "_Layout";
 }
 
+@if (@Model.Videos.Count == 0)
+{
+  <p>You do not have any videos rented out</p>
+
+  <p>@Html.ActionLink("Return Home", "Index")</p>
+
+}
+else
+{
+  <h4>Videos you have rented out:</h4>
+  <ul>
+  @foreach(var join in Model.Videos)
+  {
+    <li>@join.Video.Title</li>
+    @using (Html.BeginForm("DeleteCustomer", "Videos"))
+    {
+      @* @Html.Hidden("joinId", @join.CustomerVideoId) *@
+      <input type="submit" value="Return this video"/>
+    }
+  }
+  </ul>
+
+  <p>@Html.ActionLink("Return Home", "Index")</p>
+}
+
 @model Blockbuster.Models.Customer
+

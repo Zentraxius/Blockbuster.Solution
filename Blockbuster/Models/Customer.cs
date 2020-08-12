@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Blockbuster.Models
 {
-  public class Customer
+  public class Customer : IdentityUser
   {
     public Customer()
     {
@@ -12,8 +13,8 @@ namespace Blockbuster.Models
     public int CustomerId {get; set; }
     public int VideoId {get; set; }
     public string CustomerName {get; set;}
-    public virtual ApplicationUser User { get; set; }
-    public ICollection<CustomerVideo> Videos {get; }  
+    // public virtual ApplicationUser User { get; set; }
+    public ICollection<CustomerVideo> Videos { get; }  
   }
 }
     

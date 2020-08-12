@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Blockbuster.Models;
+@model Blockbuster.Models.Video;
+
+@if (@Model.CurrentStock() == 0)
+{
+  <p>Sorry, all copies of this video are currently checked out! Please select another video.</p>
+}
+else
+{
+  <p>This video is available!</p>
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.VideoId)
+
+    <input type="submit" value="RENT!" />
+  }
+}

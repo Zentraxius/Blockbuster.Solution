@@ -3,14 +3,16 @@ using System;
 using Blockbuster.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blockbuster.Migrations
 {
     [DbContext(typeof(BlockbusterContext))]
-    partial class BlockbusterContextModelSnapshot : ModelSnapshot
+    [Migration("20200812221114_FifthInitial")]
+    partial class FifthInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

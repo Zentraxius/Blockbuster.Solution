@@ -25,6 +25,19 @@ namespace Blockbuster.Controllers
       List<Video> model = _db.Videos.ToList();
       return View(model);
     }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Video video)
+    {
+      _db.Videos.Add(video);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
     public ActionResult Details(int id)
     {
       var thisVideo = _db.Videos
@@ -36,17 +49,32 @@ namespace Blockbuster.Controllers
 
     public ActionResult AddCustomer(int id)
     {
-      var thisVideo = _db.Videos.FirstOrDefault(videos => videos.VideoId == id);
+      var thisVideo = _db.Videos
+      .Include(video => video.Customers)
+      .ThenInclude(join => join.Customer)
+      .FirstOrDefault(videos => videos.VideoId == id);
+      // ViewBag.CustomerId = new SelectList(_db.Customers, "CustomerId", "Name");
       return View(thisVideo);
     }
 
     [HttpPost]
-    public ActionResult AddCustomer(Video video, int CustomerId)
+    public ActionResult AddCustomer(Video video)
     {
-      if (CustomerId != 0)
+      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (userId != null)
       {
-        _db.CustomerVideo.Add(new CustomerVideo() { CustomerId = CustomerId, VideoId = video.VideoId });
+        _db.CustomerVideo.Add(new CustomerVideo() { CustomerId = userId, VideoId = video.VideoId });
       }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteCustomer()
+    {
+      var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+      var joinEntry = _db.CustomerVideo.FirstOrDefault(entry => entry.CustomerId == userId);
+      _db.CustomerVideo.Remove(joinEntry);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
