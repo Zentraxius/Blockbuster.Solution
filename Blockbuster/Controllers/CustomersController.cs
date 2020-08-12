@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Blockbuster.ViewModels;
+
 
 namespace Blockbuster.Controllers
 {
@@ -76,18 +78,18 @@ namespace Blockbuster.Controllers
       return RedirectToAction("Index");
     }
 
-    public CustomersController(UserManager<ApplicationUser> userManager, BlockbusterContext db)
-    {
-      _userManager = userManager;
-      _db = db;
-    }
+    // public CustomersController(UserManager<ApplicationUser> userManager, BlockbusterContext db)
+    // {
+    //   _userManager = userManager;
+    //   _db = db;
+    // }
 
-    public async Task<ActionResult> Index()
-    {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userCustomers = _db.Customers.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      return View(_db.Customers.ToList());
-    }
+    // public async Task<ActionResult> Index()
+    // {
+    //   var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //   var currentUser = await _userManager.FindByIdAsync(userId);
+    //   var userCustomers = _db.Customers.Where(entry => entry.User.Id == currentUser.Id).ToList();
+    //   return View(_db.Customers.ToList());
+    // }
   }
 }

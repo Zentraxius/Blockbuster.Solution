@@ -2,6 +2,8 @@
   Layout = "_Layout";
 }
 
+
+@model Blockbuster.Models.Customer
 @using System.Security.Claims
 
 <h2>Blockbuster Account Authentication</h2>
@@ -11,7 +13,7 @@
   <p>Hello @User.Identity.Name!</p>
   <p>Welcome to the World of Blockbuster</p>
   <p>@Html.ActionLink("Browse Video Catalog", "Index", "Videos")</p>
-  @using (Html.BeginForm("Logoff", "Account"))
+  @using (Html.BeginForm("Logoff", "Customer"))
   {
     <input type="submit" class="btn btn-default" value="Log out" />
   }
