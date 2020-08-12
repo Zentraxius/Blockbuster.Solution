@@ -53,6 +53,7 @@ namespace Blockbuster.Controllers
       .Include(video => video.Customers)
       .ThenInclude(join => join.Customer)
       .FirstOrDefault(videos => videos.VideoId == id);
+      ViewBag.CustomerId = new SelectList(_db.Customers, "CustomerId", "Name");
       return View(thisVideo);
     }
 

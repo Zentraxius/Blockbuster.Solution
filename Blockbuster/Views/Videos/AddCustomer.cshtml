@@ -1,11 +1,15 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
 @using Blockbuster.Models;
-@model List<Blockbuster.Models.Video>;
+@model Blockbuster.Models.Video;
 
-@if (@Model.CurrentStock() > 0)
+@if (@Model.CurrentStock() == 0)
+{
+  <p>Sorry, all copies of this video are currently checked out! Please select another video.</p>
+}
+else
 {
   @using (Html.BeginForm())
   {
@@ -13,4 +17,4 @@
 
     <input type="submit" value="Save" />
   }
-} *@
+}

@@ -28,7 +28,7 @@ namespace Blockbuster
     services.AddEntityFrameworkMySql()
         .AddDbContext<BlockbusterContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
-    services.AddIdentity<ApplicationUser, IdentityRole> ()
+    services.AddIdentity<Customer, IdentityRole> ()
         .AddEntityFrameworkStores<BlockbusterContext>()
         .AddDefaultTokenProviders();
 

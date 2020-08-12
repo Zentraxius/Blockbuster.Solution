@@ -4,7 +4,7 @@ using Blockbuster.Models;
 
 namespace Blockbuster.Models
 {
-  public class BlockbusterContext : IdentityDbContext<ApplicationUser>
+  public class BlockbusterContext : IdentityDbContext<Customer>
   {
     // public virtural DbSet<Tag> Tags { get; set; }
     public DbSet<Customer> Customers { get; set; }

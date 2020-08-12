@@ -17,7 +17,7 @@ namespace Blockbuster.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Blockbuster.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Blockbuster.Models.Customer", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -26,6 +26,10 @@ namespace Blockbuster.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<string>("CustomerName");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -55,6 +59,8 @@ namespace Blockbuster.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<int>("VideoId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -67,24 +73,6 @@ namespace Blockbuster.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Blockbuster.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CustomerName");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<int>("VideoId");
-
-                    b.HasKey("CustomerId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("Blockbuster.Models.CustomerVideo", b =>
                 {
                     b.Property<int>("CustomerVideoId")
@@ -92,11 +80,13 @@ namespace Blockbuster.Migrations
 
                     b.Property<int>("CustomerId");
 
+                    b.Property<string>("CustomerId1");
+
                     b.Property<int>("VideoId");
 
                     b.HasKey("CustomerVideoId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId1");
 
                     b.HasIndex("VideoId");
 
@@ -114,11 +104,7 @@ namespace Blockbuster.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("VideoId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Videos");
                 });
@@ -230,31 +216,16 @@ namespace Blockbuster.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Blockbuster.Models.Customer", b =>
-                {
-                    b.HasOne("Blockbuster.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Blockbuster.Models.CustomerVideo", b =>
                 {
                     b.HasOne("Blockbuster.Models.Customer", "Customer")
                         .WithMany("Videos")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CustomerId1");
 
                     b.HasOne("Blockbuster.Models.Video", "Video")
                         .WithMany("Customers")
                         .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Blockbuster.Models.Video", b =>
-                {
-                    b.HasOne("Blockbuster.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -267,7 +238,7 @@ namespace Blockbuster.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Blockbuster.Models.ApplicationUser")
+                    b.HasOne("Blockbuster.Models.Customer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -275,7 +246,7 @@ namespace Blockbuster.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Blockbuster.Models.ApplicationUser")
+                    b.HasOne("Blockbuster.Models.Customer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -288,7 +259,7 @@ namespace Blockbuster.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Blockbuster.Models.ApplicationUser")
+                    b.HasOne("Blockbuster.Models.Customer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -296,7 +267,7 @@ namespace Blockbuster.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Blockbuster.Models.ApplicationUser")
+                    b.HasOne("Blockbuster.Models.Customer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

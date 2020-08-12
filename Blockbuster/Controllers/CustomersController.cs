@@ -17,10 +17,10 @@ namespace Blockbuster.Controllers
   public class CustomersController : Controller
   {
     private readonly BlockbusterContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly UserManager<Customer> _userManager;
+    private readonly SignInManager<Customer> _signInManager;
 
-    public CustomersController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, BlockbusterContext db)
+    public CustomersController (UserManager<Customer> userManager, SignInManager<Customer> signInManager, BlockbusterContext db)
     {
       _userManager = userManager;
       _signInManager = signInManager;
@@ -40,7 +40,7 @@ namespace Blockbuster.Controllers
     [HttpPost]
     public async Task<ActionResult> Register (RegisterViewModel model)
     {
-      var user = new ApplicationUser { UserName = model.Email };
+      var user = new Customer { UserName = model.Email };
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if (result.Succeeded)
       {
