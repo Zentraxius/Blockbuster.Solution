@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Blockbuster.Models
 {
-  public class Customer
+  public class Customer : IdentityUser
   {
     public Customer()
     {

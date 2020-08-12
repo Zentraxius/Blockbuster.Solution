@@ -1,0 +1,16 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Blockbuster.Models;
+@model List<Blockbuster.Models.Video>;
+
+@if (@Model.CurrentStock() > 0)
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.VideoId)
+
+    <input type="submit" value="Save" />
+  }
+}

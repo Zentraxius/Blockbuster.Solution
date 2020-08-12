@@ -17,9 +17,10 @@
 }
 else
 {
-  <p>There are: @Html.DisplayFor(model => model.CurrentStock()) copies of @Html.DisplayFor(model => model.Title) currently available for rental.</p>
+  <p>There are @Model.CurrentStock() copies of @Html.DisplayFor(model => model.Title) currently available for rental.</p>
 }
 </p>
 
+<p>@Html.ActionLink("Rent a copy of this video", "AddCustomer")</p>
 <p>@Html.ActionLink("Back to Videos List", "Index")</p>
-<p>@Html.ActionLink("Return Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Return Home", "Index", "Account")</p>
